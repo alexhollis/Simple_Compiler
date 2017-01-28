@@ -1,0 +1,9 @@
+main() : void
+begin
+int i
+DO 100 i = 3, 7, 1
+    printi(i)
+    printLine()
+100: continue    
+printLine()
+end

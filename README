@@ -1,0 +1,23 @@
+---------------------------------------------------------
+|   CSCE 4650 Program 3 - CTran Compiler Implementation |
+|   README FILE                                         |
+|   Isaias Delgado & Alex Hollis                        |
+---------------------------------------------------------
+
+To compile our project, the only command 
+needed to use in the terminal is: 
+
+> make
+
+This will compile our files and create an executable named "compiler" for your testing.
+
+
+To test code, use the standard UNIX commands to run and redirect input from your testfile
+
+Example:
+
+        ./compiler < test.ct > output.cms
+        
+This will create a output code file that can be then processed by the CMachine.
+
+

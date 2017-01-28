@@ -1,0 +1,2141 @@
+Terminals unused in grammar
+
+   OR
+   AND
+   GOTO
+
+
+State 4 conflicts: 1 shift/reduce
+State 14 conflicts: 10 shift/reduce, 15 reduce/reduce
+State 16 conflicts: 6 shift/reduce
+State 17 conflicts: 14 shift/reduce
+State 20 conflicts: 1 shift/reduce
+State 21 conflicts: 4 shift/reduce
+State 24 conflicts: 15 reduce/reduce
+State 27 conflicts: 6 shift/reduce
+State 28 conflicts: 6 shift/reduce
+State 74 conflicts: 24 reduce/reduce
+State 75 conflicts: 1 shift/reduce
+State 76 conflicts: 7 shift/reduce
+State 84 conflicts: 6 shift/reduce, 15 reduce/reduce
+State 85 conflicts: 4 shift/reduce
+State 109 conflicts: 12 shift/reduce
+State 110 conflicts: 12 shift/reduce
+State 111 conflicts: 12 shift/reduce
+State 112 conflicts: 12 shift/reduce
+State 113 conflicts: 12 shift/reduce
+State 114 conflicts: 12 shift/reduce
+State 124 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: parsetree $end
+
+    1 parsetree: %empty
+    2          | parsetree lines
+
+    3 lines: lines line
+    4      | line
+    5      | loop
+
+    6 line: VARIABLE
+    7     | INT VARIABLE
+    8     | INT VARIABLE SEMICOLON
+    9     | VARIABLE EQUALS NUMBER
+   10     | VARIABLE EQUALS expression
+   11     | PRINT LPAREN NUMBER RPAREN
+   12     | PRINT LPAREN expression RPAREN
+   13     | loop
+   14     | expression
+   15     | output
+   16     | words
+
+   17 output: SPRINT LPAREN QUOTE
+   18       | words QUOTE RPAREN
+   19       | MAIN LPAREN RPAREN COLON VOID BEG
+   20       | NEWLINE LPAREN RPAREN
+   21       | BEG
+   22       | END
+
+   23 words: WORD
+   24      | words WORD
+
+   25 expression: PRINT
+   26           | IF
+   27           | ELSE
+   28           | expression PLUS inner1
+   29           | expression MINUS inner1
+   30           | expression DBLEQUAL expression
+   31           | VARIABLE DBLEQUAL VARIABLE
+   32           | VARIABLE DBLEQUAL NUMBER
+   33           | NUMBER DBLEQUAL NUMBER
+   34           | expression LESSER expression
+   35           | VARIABLE LESSER VARIABLE
+   36           | VARIABLE LESSER NUMBER
+   37           | NUMBER LESSER NUMBER
+   38           | expression GREATER expression
+   39           | VARIABLE GREATER VARIABLE
+   40           | VARIABLE GREATER NUMBER
+   41           | NUMBER GREATER NUMBER
+   42           | expression LTEQUAL expression
+   43           | VARIABLE LTEQUAL VARIABLE
+   44           | VARIABLE LTEQUAL NUMBER
+   45           | NUMBER LTEQUAL NUMBER
+   46           | expression GREQUAL expression
+   47           | VARIABLE GREQUAL VARIABLE
+   48           | VARIABLE GREQUAL NUMBER
+   49           | NUMBER GREQUAL NUMBER
+   50           | expression NOTEQUAL expression
+   51           | VARIABLE NOTEQUAL VARIABLE
+   52           | VARIABLE NOTEQUAL NUMBER
+   53           | NUMBER NOTEQUAL NUMBER
+   54           | LPAREN expression RPAREN
+   55           | LPAREN expression inner1 RPAREN
+   56           | expression inner1
+   57           | inner1
+
+   58 inner1: inner1 ASTERISK inner2
+   59       | inner1 FSLASH inner2
+   60       | inner1 EXPON inner2
+   61       | inner1 MOD inner2
+   62       | inner2
+
+   63 inner2: VARIABLE
+   64       | NUMBER
+   65       | inner2 COMMA NUMBER
+   66       | INT VARIABLE LBRACKET inner2 RBRACKET SEMICOLON
+   67       | INT VARIABLE LBRACKET NUMBER RBRACKET SEMICOLON
+   68       | VARIABLE LBRACKET VARIABLE RBRACKET EQUALS VARIABLE
+   69       | LPAREN expression RPAREN
+
+   70 loop: DO NUMBER VARIABLE EQUALS NUMBER COMMA NUMBER
+   71     | VARIABLE inner2
+   72     | NUMBER CONT
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+PLUS (258) 28
+MINUS (259) 29
+MOD (260) 61
+ASTERISK (261) 58
+QUOTE (262) 17 18
+FSLASH (263) 59
+EQUALS (264) 9 10 68 70
+LPAREN (265) 11 12 17 19 20 54 55 69
+RPAREN (266) 11 12 18 19 20 54 55 69
+SEMICOLON (267) 8 66 67
+EXPON (268) 60
+PRINT (269) 11 12 25
+SPRINT (270) 17
+MAIN (271) 19
+COLON (272) 19
+VOID (273) 19
+BEG (274) 19 21
+END (275) 22
+INT (276) 7 8 66 67
+DO (277) 70
+COMMA (278) 65 70
+CONT (279) 72
+DBLEQUAL (280) 30 31 32 33
+GREATER (281) 38 39 40 41
+LESSER (282) 34 35 36 37
+GREQUAL (283) 46 47 48 49
+LTEQUAL (284) 42 43 44 45
+OR (285)
+AND (286)
+NOTEQUAL (287) 50 51 52 53
+ELSE (288) 27
+IF (289) 26
+GOTO (290)
+NEWLINE (291) 20
+LBRACKET (292) 66 67 68
+RBRACKET (293) 66 67 68
+VARIABLE (294) 6 7 8 9 10 31 32 35 36 39 40 43 44 47 48 51 52 63 66
+    67 68 70 71
+WORD (295) 23 24
+NUMBER (296) 9 11 32 33 36 37 40 41 44 45 48 49 52 53 64 65 67 70 72
+
+
+Nonterminals, with rules where they appear
+
+$accept (42)
+    on left: 0
+parsetree (43)
+    on left: 1 2, on right: 0 2
+lines (44)
+    on left: 3 4 5, on right: 2 3
+line (45)
+    on left: 6 7 8 9 10 11 12 13 14 15 16, on right: 3 4
+output (46)
+    on left: 17 18 19 20 21 22, on right: 15
+words (47)
+    on left: 23 24, on right: 16 18 24
+expression (48)
+    on left: 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
+    43 44 45 46 47 48 49 50 51 52 53 54 55 56 57, on right: 10 12 14
+    28 29 30 34 38 42 46 50 54 55 56 69
+inner1 (49)
+    on left: 58 59 60 61 62, on right: 28 29 55 56 57 58 59 60 61
+inner2 (50)
+    on left: 63 64 65 66 67 68 69, on right: 58 59 60 61 62 65 66 71
+loop (51)
+    on left: 70 71 72, on right: 5 13
+
+
+State 0
+
+    0 $accept: . parsetree $end
+
+    $default  reduce using rule 1 (parsetree)
+
+    parsetree  go to state 1
+
+
+State 1
+
+    0 $accept: parsetree . $end
+    2 parsetree: parsetree . lines
+
+    $end      shift, and go to state 2
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 4
+    SPRINT    shift, and go to state 5
+    MAIN      shift, and go to state 6
+    BEG       shift, and go to state 7
+    END       shift, and go to state 8
+    INT       shift, and go to state 9
+    DO        shift, and go to state 10
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    NEWLINE   shift, and go to state 13
+    VARIABLE  shift, and go to state 14
+    WORD      shift, and go to state 15
+    NUMBER    shift, and go to state 16
+
+    lines       go to state 17
+    line        go to state 18
+    output      go to state 19
+    words       go to state 20
+    expression  go to state 21
+    inner1      go to state 22
+    inner2      go to state 23
+    loop        go to state 24
+
+
+State 2
+
+    0 $accept: parsetree $end .
+
+    $default  accept
+
+
+State 3
+
+   54 expression: LPAREN . expression RPAREN
+   55           | LPAREN . expression inner1 RPAREN
+   69 inner2: LPAREN . expression RPAREN
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 29
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 4
+
+   11 line: PRINT . LPAREN NUMBER RPAREN
+   12     | PRINT . LPAREN expression RPAREN
+   25 expression: PRINT .
+
+    LPAREN  shift, and go to state 30
+
+    LPAREN    [reduce using rule 25 (expression)]
+    $default  reduce using rule 25 (expression)
+
+
+State 5
+
+   17 output: SPRINT . LPAREN QUOTE
+
+    LPAREN  shift, and go to state 31
+
+
+State 6
+
+   19 output: MAIN . LPAREN RPAREN COLON VOID BEG
+
+    LPAREN  shift, and go to state 32
+
+
+State 7
+
+   21 output: BEG .
+
+    $default  reduce using rule 21 (output)
+
+
+State 8
+
+   22 output: END .
+
+    $default  reduce using rule 22 (output)
+
+
+State 9
+
+    7 line: INT . VARIABLE
+    8     | INT . VARIABLE SEMICOLON
+   66 inner2: INT . VARIABLE LBRACKET inner2 RBRACKET SEMICOLON
+   67       | INT . VARIABLE LBRACKET NUMBER RBRACKET SEMICOLON
+
+    VARIABLE  shift, and go to state 33
+
+
+State 10
+
+   70 loop: DO . NUMBER VARIABLE EQUALS NUMBER COMMA NUMBER
+
+    NUMBER  shift, and go to state 34
+
+
+State 11
+
+   27 expression: ELSE .
+
+    $default  reduce using rule 27 (expression)
+
+
+State 12
+
+   26 expression: IF .
+
+    $default  reduce using rule 26 (expression)
+
+
+State 13
+
+   20 output: NEWLINE . LPAREN RPAREN
+
+    LPAREN  shift, and go to state 35
+
+
+State 14
+
+    6 line: VARIABLE .
+    9     | VARIABLE . EQUALS NUMBER
+   10     | VARIABLE . EQUALS expression
+   31 expression: VARIABLE . DBLEQUAL VARIABLE
+   32           | VARIABLE . DBLEQUAL NUMBER
+   35           | VARIABLE . LESSER VARIABLE
+   36           | VARIABLE . LESSER NUMBER
+   39           | VARIABLE . GREATER VARIABLE
+   40           | VARIABLE . GREATER NUMBER
+   43           | VARIABLE . LTEQUAL VARIABLE
+   44           | VARIABLE . LTEQUAL NUMBER
+   47           | VARIABLE . GREQUAL VARIABLE
+   48           | VARIABLE . GREQUAL NUMBER
+   51           | VARIABLE . NOTEQUAL VARIABLE
+   52           | VARIABLE . NOTEQUAL NUMBER
+   63 inner2: VARIABLE .
+   68       | VARIABLE . LBRACKET VARIABLE RBRACKET EQUALS VARIABLE
+   71 loop: VARIABLE . inner2
+
+    EQUALS    shift, and go to state 36
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 38
+    GREATER   shift, and go to state 39
+    LESSER    shift, and go to state 40
+    GREQUAL   shift, and go to state 41
+    LTEQUAL   shift, and go to state 42
+    NOTEQUAL  shift, and go to state 43
+    LBRACKET  shift, and go to state 44
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    $end      reduce using rule 6 (line)
+    $end      [reduce using rule 63 (inner2)]
+    PLUS      reduce using rule 63 (inner2)
+    MINUS     reduce using rule 63 (inner2)
+    MOD       reduce using rule 63 (inner2)
+    ASTERISK  reduce using rule 63 (inner2)
+    FSLASH    reduce using rule 63 (inner2)
+    LPAREN    [reduce using rule 6 (line)]
+    LPAREN    [reduce using rule 63 (inner2)]
+    EXPON     reduce using rule 63 (inner2)
+    PRINT     reduce using rule 6 (line)
+    PRINT     [reduce using rule 63 (inner2)]
+    SPRINT    reduce using rule 6 (line)
+    SPRINT    [reduce using rule 63 (inner2)]
+    MAIN      reduce using rule 6 (line)
+    MAIN      [reduce using rule 63 (inner2)]
+    BEG       reduce using rule 6 (line)
+    BEG       [reduce using rule 63 (inner2)]
+    END       reduce using rule 6 (line)
+    END       [reduce using rule 63 (inner2)]
+    INT       [reduce using rule 6 (line)]
+    INT       [reduce using rule 63 (inner2)]
+    DO        reduce using rule 6 (line)
+    DO        [reduce using rule 63 (inner2)]
+    COMMA     reduce using rule 63 (inner2)
+    DBLEQUAL  [reduce using rule 63 (inner2)]
+    GREATER   [reduce using rule 63 (inner2)]
+    LESSER    [reduce using rule 63 (inner2)]
+    GREQUAL   [reduce using rule 63 (inner2)]
+    LTEQUAL   [reduce using rule 63 (inner2)]
+    NOTEQUAL  [reduce using rule 63 (inner2)]
+    ELSE      reduce using rule 6 (line)
+    ELSE      [reduce using rule 63 (inner2)]
+    IF        reduce using rule 6 (line)
+    IF        [reduce using rule 63 (inner2)]
+    NEWLINE   reduce using rule 6 (line)
+    NEWLINE   [reduce using rule 63 (inner2)]
+    VARIABLE  [reduce using rule 6 (line)]
+    VARIABLE  [reduce using rule 63 (inner2)]
+    WORD      reduce using rule 6 (line)
+    WORD      [reduce using rule 63 (inner2)]
+    NUMBER    [reduce using rule 6 (line)]
+    NUMBER    [reduce using rule 63 (inner2)]
+    $default  reduce using rule 6 (line)
+
+    inner2  go to state 47
+
+
+State 15
+
+   23 words: WORD .
+
+    $default  reduce using rule 23 (words)
+
+
+State 16
+
+   33 expression: NUMBER . DBLEQUAL NUMBER
+   37           | NUMBER . LESSER NUMBER
+   41           | NUMBER . GREATER NUMBER
+   45           | NUMBER . LTEQUAL NUMBER
+   49           | NUMBER . GREQUAL NUMBER
+   53           | NUMBER . NOTEQUAL NUMBER
+   64 inner2: NUMBER .
+   72 loop: NUMBER . CONT
+
+    CONT      shift, and go to state 48
+    DBLEQUAL  shift, and go to state 49
+    GREATER   shift, and go to state 50
+    LESSER    shift, and go to state 51
+    GREQUAL   shift, and go to state 52
+    LTEQUAL   shift, and go to state 53
+    NOTEQUAL  shift, and go to state 54
+
+    DBLEQUAL  [reduce using rule 64 (inner2)]
+    GREATER   [reduce using rule 64 (inner2)]
+    LESSER    [reduce using rule 64 (inner2)]
+    GREQUAL   [reduce using rule 64 (inner2)]
+    LTEQUAL   [reduce using rule 64 (inner2)]
+    NOTEQUAL  [reduce using rule 64 (inner2)]
+    $default  reduce using rule 64 (inner2)
+
+
+State 17
+
+    2 parsetree: parsetree lines .
+    3 lines: lines . line
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 4
+    SPRINT    shift, and go to state 5
+    MAIN      shift, and go to state 6
+    BEG       shift, and go to state 7
+    END       shift, and go to state 8
+    INT       shift, and go to state 9
+    DO        shift, and go to state 10
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    NEWLINE   shift, and go to state 13
+    VARIABLE  shift, and go to state 14
+    WORD      shift, and go to state 15
+    NUMBER    shift, and go to state 16
+
+    LPAREN    [reduce using rule 2 (parsetree)]
+    PRINT     [reduce using rule 2 (parsetree)]
+    SPRINT    [reduce using rule 2 (parsetree)]
+    MAIN      [reduce using rule 2 (parsetree)]
+    BEG       [reduce using rule 2 (parsetree)]
+    END       [reduce using rule 2 (parsetree)]
+    INT       [reduce using rule 2 (parsetree)]
+    DO        [reduce using rule 2 (parsetree)]
+    ELSE      [reduce using rule 2 (parsetree)]
+    IF        [reduce using rule 2 (parsetree)]
+    NEWLINE   [reduce using rule 2 (parsetree)]
+    VARIABLE  [reduce using rule 2 (parsetree)]
+    WORD      [reduce using rule 2 (parsetree)]
+    NUMBER    [reduce using rule 2 (parsetree)]
+    $default  reduce using rule 2 (parsetree)
+
+    line        go to state 55
+    output      go to state 19
+    words       go to state 20
+    expression  go to state 21
+    inner1      go to state 22
+    inner2      go to state 23
+    loop        go to state 56
+
+
+State 18
+
+    4 lines: line .
+
+    $default  reduce using rule 4 (lines)
+
+
+State 19
+
+   15 line: output .
+
+    $default  reduce using rule 15 (line)
+
+
+State 20
+
+   16 line: words .
+   18 output: words . QUOTE RPAREN
+   24 words: words . WORD
+
+    QUOTE  shift, and go to state 57
+    WORD   shift, and go to state 58
+
+    WORD      [reduce using rule 16 (line)]
+    $default  reduce using rule 16 (line)
+
+
+State 21
+
+   14 line: expression .
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    LPAREN    [reduce using rule 14 (line)]
+    INT       [reduce using rule 14 (line)]
+    VARIABLE  [reduce using rule 14 (line)]
+    NUMBER    [reduce using rule 14 (line)]
+    $default  reduce using rule 14 (line)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 22
+
+   57 expression: inner1 .
+   58 inner1: inner1 . ASTERISK inner2
+   59       | inner1 . FSLASH inner2
+   60       | inner1 . EXPON inner2
+   61       | inner1 . MOD inner2
+
+    MOD       shift, and go to state 68
+    ASTERISK  shift, and go to state 69
+    FSLASH    shift, and go to state 70
+    EXPON     shift, and go to state 71
+
+    $default  reduce using rule 57 (expression)
+
+
+State 23
+
+   62 inner1: inner2 .
+   65 inner2: inner2 . COMMA NUMBER
+
+    COMMA  shift, and go to state 72
+
+    $default  reduce using rule 62 (inner1)
+
+
+State 24
+
+    5 lines: loop .
+   13 line: loop .
+
+    $end      reduce using rule 5 (lines)
+    $end      [reduce using rule 13 (line)]
+    LPAREN    reduce using rule 5 (lines)
+    LPAREN    [reduce using rule 13 (line)]
+    PRINT     reduce using rule 5 (lines)
+    PRINT     [reduce using rule 13 (line)]
+    SPRINT    reduce using rule 5 (lines)
+    SPRINT    [reduce using rule 13 (line)]
+    MAIN      reduce using rule 5 (lines)
+    MAIN      [reduce using rule 13 (line)]
+    BEG       reduce using rule 5 (lines)
+    BEG       [reduce using rule 13 (line)]
+    END       reduce using rule 5 (lines)
+    END       [reduce using rule 13 (line)]
+    INT       reduce using rule 5 (lines)
+    INT       [reduce using rule 13 (line)]
+    DO        reduce using rule 5 (lines)
+    DO        [reduce using rule 13 (line)]
+    ELSE      reduce using rule 5 (lines)
+    ELSE      [reduce using rule 13 (line)]
+    IF        reduce using rule 5 (lines)
+    IF        [reduce using rule 13 (line)]
+    NEWLINE   reduce using rule 5 (lines)
+    NEWLINE   [reduce using rule 13 (line)]
+    VARIABLE  reduce using rule 5 (lines)
+    VARIABLE  [reduce using rule 13 (line)]
+    WORD      reduce using rule 5 (lines)
+    WORD      [reduce using rule 13 (line)]
+    NUMBER    reduce using rule 5 (lines)
+    NUMBER    [reduce using rule 13 (line)]
+    $default  reduce using rule 5 (lines)
+
+
+State 25
+
+   25 expression: PRINT .
+
+    $default  reduce using rule 25 (expression)
+
+
+State 26
+
+   66 inner2: INT . VARIABLE LBRACKET inner2 RBRACKET SEMICOLON
+   67       | INT . VARIABLE LBRACKET NUMBER RBRACKET SEMICOLON
+
+    VARIABLE  shift, and go to state 73
+
+
+State 27
+
+   31 expression: VARIABLE . DBLEQUAL VARIABLE
+   32           | VARIABLE . DBLEQUAL NUMBER
+   35           | VARIABLE . LESSER VARIABLE
+   36           | VARIABLE . LESSER NUMBER
+   39           | VARIABLE . GREATER VARIABLE
+   40           | VARIABLE . GREATER NUMBER
+   43           | VARIABLE . LTEQUAL VARIABLE
+   44           | VARIABLE . LTEQUAL NUMBER
+   47           | VARIABLE . GREQUAL VARIABLE
+   48           | VARIABLE . GREQUAL NUMBER
+   51           | VARIABLE . NOTEQUAL VARIABLE
+   52           | VARIABLE . NOTEQUAL NUMBER
+   63 inner2: VARIABLE .
+   68       | VARIABLE . LBRACKET VARIABLE RBRACKET EQUALS VARIABLE
+
+    DBLEQUAL  shift, and go to state 38
+    GREATER   shift, and go to state 39
+    LESSER    shift, and go to state 40
+    GREQUAL   shift, and go to state 41
+    LTEQUAL   shift, and go to state 42
+    NOTEQUAL  shift, and go to state 43
+    LBRACKET  shift, and go to state 44
+
+    DBLEQUAL  [reduce using rule 63 (inner2)]
+    GREATER   [reduce using rule 63 (inner2)]
+    LESSER    [reduce using rule 63 (inner2)]
+    GREQUAL   [reduce using rule 63 (inner2)]
+    LTEQUAL   [reduce using rule 63 (inner2)]
+    NOTEQUAL  [reduce using rule 63 (inner2)]
+    $default  reduce using rule 63 (inner2)
+
+
+State 28
+
+   33 expression: NUMBER . DBLEQUAL NUMBER
+   37           | NUMBER . LESSER NUMBER
+   41           | NUMBER . GREATER NUMBER
+   45           | NUMBER . LTEQUAL NUMBER
+   49           | NUMBER . GREQUAL NUMBER
+   53           | NUMBER . NOTEQUAL NUMBER
+   64 inner2: NUMBER .
+
+    DBLEQUAL  shift, and go to state 49
+    GREATER   shift, and go to state 50
+    LESSER    shift, and go to state 51
+    GREQUAL   shift, and go to state 52
+    LTEQUAL   shift, and go to state 53
+    NOTEQUAL  shift, and go to state 54
+
+    DBLEQUAL  [reduce using rule 64 (inner2)]
+    GREATER   [reduce using rule 64 (inner2)]
+    LESSER    [reduce using rule 64 (inner2)]
+    GREQUAL   [reduce using rule 64 (inner2)]
+    LTEQUAL   [reduce using rule 64 (inner2)]
+    NOTEQUAL  [reduce using rule 64 (inner2)]
+    $default  reduce using rule 64 (inner2)
+
+
+State 29
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   54           | LPAREN expression . RPAREN
+   55           | LPAREN expression . inner1 RPAREN
+   56           | expression . inner1
+   69 inner2: LPAREN expression . RPAREN
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    RPAREN    shift, and go to state 74
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner1  go to state 75
+    inner2  go to state 23
+
+
+State 30
+
+   11 line: PRINT LPAREN . NUMBER RPAREN
+   12     | PRINT LPAREN . expression RPAREN
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 76
+
+    expression  go to state 77
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 31
+
+   17 output: SPRINT LPAREN . QUOTE
+
+    QUOTE  shift, and go to state 78
+
+
+State 32
+
+   19 output: MAIN LPAREN . RPAREN COLON VOID BEG
+
+    RPAREN  shift, and go to state 79
+
+
+State 33
+
+    7 line: INT VARIABLE .
+    8     | INT VARIABLE . SEMICOLON
+   66 inner2: INT VARIABLE . LBRACKET inner2 RBRACKET SEMICOLON
+   67       | INT VARIABLE . LBRACKET NUMBER RBRACKET SEMICOLON
+
+    SEMICOLON  shift, and go to state 80
+    LBRACKET   shift, and go to state 81
+
+    $default  reduce using rule 7 (line)
+
+
+State 34
+
+   70 loop: DO NUMBER . VARIABLE EQUALS NUMBER COMMA NUMBER
+
+    VARIABLE  shift, and go to state 82
+
+
+State 35
+
+   20 output: NEWLINE LPAREN . RPAREN
+
+    RPAREN  shift, and go to state 83
+
+
+State 36
+
+    9 line: VARIABLE EQUALS . NUMBER
+   10     | VARIABLE EQUALS . expression
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 84
+
+    expression  go to state 85
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 37
+
+   69 inner2: LPAREN . expression RPAREN
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 86
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 38
+
+   31 expression: VARIABLE DBLEQUAL . VARIABLE
+   32           | VARIABLE DBLEQUAL . NUMBER
+
+    VARIABLE  shift, and go to state 87
+    NUMBER    shift, and go to state 88
+
+
+State 39
+
+   39 expression: VARIABLE GREATER . VARIABLE
+   40           | VARIABLE GREATER . NUMBER
+
+    VARIABLE  shift, and go to state 89
+    NUMBER    shift, and go to state 90
+
+
+State 40
+
+   35 expression: VARIABLE LESSER . VARIABLE
+   36           | VARIABLE LESSER . NUMBER
+
+    VARIABLE  shift, and go to state 91
+    NUMBER    shift, and go to state 92
+
+
+State 41
+
+   47 expression: VARIABLE GREQUAL . VARIABLE
+   48           | VARIABLE GREQUAL . NUMBER
+
+    VARIABLE  shift, and go to state 93
+    NUMBER    shift, and go to state 94
+
+
+State 42
+
+   43 expression: VARIABLE LTEQUAL . VARIABLE
+   44           | VARIABLE LTEQUAL . NUMBER
+
+    VARIABLE  shift, and go to state 95
+    NUMBER    shift, and go to state 96
+
+
+State 43
+
+   51 expression: VARIABLE NOTEQUAL . VARIABLE
+   52           | VARIABLE NOTEQUAL . NUMBER
+
+    VARIABLE  shift, and go to state 97
+    NUMBER    shift, and go to state 98
+
+
+State 44
+
+   68 inner2: VARIABLE LBRACKET . VARIABLE RBRACKET EQUALS VARIABLE
+
+    VARIABLE  shift, and go to state 99
+
+
+State 45
+
+   63 inner2: VARIABLE .
+   68       | VARIABLE . LBRACKET VARIABLE RBRACKET EQUALS VARIABLE
+
+    LBRACKET  shift, and go to state 44
+
+    $default  reduce using rule 63 (inner2)
+
+
+State 46
+
+   64 inner2: NUMBER .
+
+    $default  reduce using rule 64 (inner2)
+
+
+State 47
+
+   65 inner2: inner2 . COMMA NUMBER
+   71 loop: VARIABLE inner2 .
+
+    COMMA  shift, and go to state 72
+
+    $default  reduce using rule 71 (loop)
+
+
+State 48
+
+   72 loop: NUMBER CONT .
+
+    $default  reduce using rule 72 (loop)
+
+
+State 49
+
+   33 expression: NUMBER DBLEQUAL . NUMBER
+
+    NUMBER  shift, and go to state 100
+
+
+State 50
+
+   41 expression: NUMBER GREATER . NUMBER
+
+    NUMBER  shift, and go to state 101
+
+
+State 51
+
+   37 expression: NUMBER LESSER . NUMBER
+
+    NUMBER  shift, and go to state 102
+
+
+State 52
+
+   49 expression: NUMBER GREQUAL . NUMBER
+
+    NUMBER  shift, and go to state 103
+
+
+State 53
+
+   45 expression: NUMBER LTEQUAL . NUMBER
+
+    NUMBER  shift, and go to state 104
+
+
+State 54
+
+   53 expression: NUMBER NOTEQUAL . NUMBER
+
+    NUMBER  shift, and go to state 105
+
+
+State 55
+
+    3 lines: lines line .
+
+    $default  reduce using rule 3 (lines)
+
+
+State 56
+
+   13 line: loop .
+
+    $default  reduce using rule 13 (line)
+
+
+State 57
+
+   18 output: words QUOTE . RPAREN
+
+    RPAREN  shift, and go to state 106
+
+
+State 58
+
+   24 words: words WORD .
+
+    $default  reduce using rule 24 (words)
+
+
+State 59
+
+   28 expression: expression PLUS . inner1
+
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner1  go to state 107
+    inner2  go to state 23
+
+
+State 60
+
+   29 expression: expression MINUS . inner1
+
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner1  go to state 108
+    inner2  go to state 23
+
+
+State 61
+
+   30 expression: expression DBLEQUAL . expression
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 109
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 62
+
+   38 expression: expression GREATER . expression
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 110
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 63
+
+   34 expression: expression LESSER . expression
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 111
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 64
+
+   46 expression: expression GREQUAL . expression
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 112
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 65
+
+   42 expression: expression LTEQUAL . expression
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 113
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 66
+
+   50 expression: expression NOTEQUAL . expression
+
+    LPAREN    shift, and go to state 3
+    PRINT     shift, and go to state 25
+    INT       shift, and go to state 26
+    ELSE      shift, and go to state 11
+    IF        shift, and go to state 12
+    VARIABLE  shift, and go to state 27
+    NUMBER    shift, and go to state 28
+
+    expression  go to state 114
+    inner1      go to state 22
+    inner2      go to state 23
+
+
+State 67
+
+   56 expression: expression inner1 .
+   58 inner1: inner1 . ASTERISK inner2
+   59       | inner1 . FSLASH inner2
+   60       | inner1 . EXPON inner2
+   61       | inner1 . MOD inner2
+
+    MOD       shift, and go to state 68
+    ASTERISK  shift, and go to state 69
+    FSLASH    shift, and go to state 70
+    EXPON     shift, and go to state 71
+
+    $default  reduce using rule 56 (expression)
+
+
+State 68
+
+   61 inner1: inner1 MOD . inner2
+
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner2  go to state 115
+
+
+State 69
+
+   58 inner1: inner1 ASTERISK . inner2
+
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner2  go to state 116
+
+
+State 70
+
+   59 inner1: inner1 FSLASH . inner2
+
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner2  go to state 117
+
+
+State 71
+
+   60 inner1: inner1 EXPON . inner2
+
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner2  go to state 118
+
+
+State 72
+
+   65 inner2: inner2 COMMA . NUMBER
+
+    NUMBER  shift, and go to state 119
+
+
+State 73
+
+   66 inner2: INT VARIABLE . LBRACKET inner2 RBRACKET SEMICOLON
+   67       | INT VARIABLE . LBRACKET NUMBER RBRACKET SEMICOLON
+
+    LBRACKET  shift, and go to state 81
+
+
+State 74
+
+   54 expression: LPAREN expression RPAREN .
+   69 inner2: LPAREN expression RPAREN .
+
+    $end      reduce using rule 54 (expression)
+    $end      [reduce using rule 69 (inner2)]
+    PLUS      reduce using rule 54 (expression)
+    PLUS      [reduce using rule 69 (inner2)]
+    MINUS     reduce using rule 54 (expression)
+    MINUS     [reduce using rule 69 (inner2)]
+    MOD       reduce using rule 69 (inner2)
+    ASTERISK  reduce using rule 69 (inner2)
+    FSLASH    reduce using rule 69 (inner2)
+    LPAREN    reduce using rule 54 (expression)
+    LPAREN    [reduce using rule 69 (inner2)]
+    RPAREN    reduce using rule 54 (expression)
+    RPAREN    [reduce using rule 69 (inner2)]
+    EXPON     reduce using rule 69 (inner2)
+    PRINT     reduce using rule 54 (expression)
+    PRINT     [reduce using rule 69 (inner2)]
+    SPRINT    reduce using rule 54 (expression)
+    SPRINT    [reduce using rule 69 (inner2)]
+    MAIN      reduce using rule 54 (expression)
+    MAIN      [reduce using rule 69 (inner2)]
+    BEG       reduce using rule 54 (expression)
+    BEG       [reduce using rule 69 (inner2)]
+    END       reduce using rule 54 (expression)
+    END       [reduce using rule 69 (inner2)]
+    INT       reduce using rule 54 (expression)
+    INT       [reduce using rule 69 (inner2)]
+    DO        reduce using rule 54 (expression)
+    DO        [reduce using rule 69 (inner2)]
+    COMMA     reduce using rule 69 (inner2)
+    DBLEQUAL  reduce using rule 54 (expression)
+    DBLEQUAL  [reduce using rule 69 (inner2)]
+    GREATER   reduce using rule 54 (expression)
+    GREATER   [reduce using rule 69 (inner2)]
+    LESSER    reduce using rule 54 (expression)
+    LESSER    [reduce using rule 69 (inner2)]
+    GREQUAL   reduce using rule 54 (expression)
+    GREQUAL   [reduce using rule 69 (inner2)]
+    LTEQUAL   reduce using rule 54 (expression)
+    LTEQUAL   [reduce using rule 69 (inner2)]
+    NOTEQUAL  reduce using rule 54 (expression)
+    NOTEQUAL  [reduce using rule 69 (inner2)]
+    ELSE      reduce using rule 54 (expression)
+    ELSE      [reduce using rule 69 (inner2)]
+    IF        reduce using rule 54 (expression)
+    IF        [reduce using rule 69 (inner2)]
+    NEWLINE   reduce using rule 54 (expression)
+    NEWLINE   [reduce using rule 69 (inner2)]
+    VARIABLE  reduce using rule 54 (expression)
+    VARIABLE  [reduce using rule 69 (inner2)]
+    WORD      reduce using rule 54 (expression)
+    WORD      [reduce using rule 69 (inner2)]
+    NUMBER    reduce using rule 54 (expression)
+    NUMBER    [reduce using rule 69 (inner2)]
+    $default  reduce using rule 54 (expression)
+
+
+State 75
+
+   55 expression: LPAREN expression inner1 . RPAREN
+   56           | expression inner1 .
+   58 inner1: inner1 . ASTERISK inner2
+   59       | inner1 . FSLASH inner2
+   60       | inner1 . EXPON inner2
+   61       | inner1 . MOD inner2
+
+    MOD       shift, and go to state 68
+    ASTERISK  shift, and go to state 69
+    FSLASH    shift, and go to state 70
+    RPAREN    shift, and go to state 120
+    EXPON     shift, and go to state 71
+
+    RPAREN    [reduce using rule 56 (expression)]
+    $default  reduce using rule 56 (expression)
+
+
+State 76
+
+   11 line: PRINT LPAREN NUMBER . RPAREN
+   33 expression: NUMBER . DBLEQUAL NUMBER
+   37           | NUMBER . LESSER NUMBER
+   41           | NUMBER . GREATER NUMBER
+   45           | NUMBER . LTEQUAL NUMBER
+   49           | NUMBER . GREQUAL NUMBER
+   53           | NUMBER . NOTEQUAL NUMBER
+   64 inner2: NUMBER .
+
+    RPAREN    shift, and go to state 121
+    DBLEQUAL  shift, and go to state 49
+    GREATER   shift, and go to state 50
+    LESSER    shift, and go to state 51
+    GREQUAL   shift, and go to state 52
+    LTEQUAL   shift, and go to state 53
+    NOTEQUAL  shift, and go to state 54
+
+    RPAREN    [reduce using rule 64 (inner2)]
+    DBLEQUAL  [reduce using rule 64 (inner2)]
+    GREATER   [reduce using rule 64 (inner2)]
+    LESSER    [reduce using rule 64 (inner2)]
+    GREQUAL   [reduce using rule 64 (inner2)]
+    LTEQUAL   [reduce using rule 64 (inner2)]
+    NOTEQUAL  [reduce using rule 64 (inner2)]
+    $default  reduce using rule 64 (inner2)
+
+
+State 77
+
+   12 line: PRINT LPAREN expression . RPAREN
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    RPAREN    shift, and go to state 122
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 78
+
+   17 output: SPRINT LPAREN QUOTE .
+
+    $default  reduce using rule 17 (output)
+
+
+State 79
+
+   19 output: MAIN LPAREN RPAREN . COLON VOID BEG
+
+    COLON  shift, and go to state 123
+
+
+State 80
+
+    8 line: INT VARIABLE SEMICOLON .
+
+    $default  reduce using rule 8 (line)
+
+
+State 81
+
+   66 inner2: INT VARIABLE LBRACKET . inner2 RBRACKET SEMICOLON
+   67       | INT VARIABLE LBRACKET . NUMBER RBRACKET SEMICOLON
+
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 124
+
+    inner2  go to state 125
+
+
+State 82
+
+   70 loop: DO NUMBER VARIABLE . EQUALS NUMBER COMMA NUMBER
+
+    EQUALS  shift, and go to state 126
+
+
+State 83
+
+   20 output: NEWLINE LPAREN RPAREN .
+
+    $default  reduce using rule 20 (output)
+
+
+State 84
+
+    9 line: VARIABLE EQUALS NUMBER .
+   33 expression: NUMBER . DBLEQUAL NUMBER
+   37           | NUMBER . LESSER NUMBER
+   41           | NUMBER . GREATER NUMBER
+   45           | NUMBER . LTEQUAL NUMBER
+   49           | NUMBER . GREQUAL NUMBER
+   53           | NUMBER . NOTEQUAL NUMBER
+   64 inner2: NUMBER .
+
+    DBLEQUAL  shift, and go to state 49
+    GREATER   shift, and go to state 50
+    LESSER    shift, and go to state 51
+    GREQUAL   shift, and go to state 52
+    LTEQUAL   shift, and go to state 53
+    NOTEQUAL  shift, and go to state 54
+
+    $end      reduce using rule 9 (line)
+    $end      [reduce using rule 64 (inner2)]
+    PLUS      reduce using rule 64 (inner2)
+    MINUS     reduce using rule 64 (inner2)
+    MOD       reduce using rule 64 (inner2)
+    ASTERISK  reduce using rule 64 (inner2)
+    FSLASH    reduce using rule 64 (inner2)
+    LPAREN    reduce using rule 9 (line)
+    LPAREN    [reduce using rule 64 (inner2)]
+    EXPON     reduce using rule 64 (inner2)
+    PRINT     reduce using rule 9 (line)
+    PRINT     [reduce using rule 64 (inner2)]
+    SPRINT    reduce using rule 9 (line)
+    SPRINT    [reduce using rule 64 (inner2)]
+    MAIN      reduce using rule 9 (line)
+    MAIN      [reduce using rule 64 (inner2)]
+    BEG       reduce using rule 9 (line)
+    BEG       [reduce using rule 64 (inner2)]
+    END       reduce using rule 9 (line)
+    END       [reduce using rule 64 (inner2)]
+    INT       reduce using rule 9 (line)
+    INT       [reduce using rule 64 (inner2)]
+    DO        reduce using rule 9 (line)
+    DO        [reduce using rule 64 (inner2)]
+    COMMA     reduce using rule 64 (inner2)
+    DBLEQUAL  [reduce using rule 64 (inner2)]
+    GREATER   [reduce using rule 64 (inner2)]
+    LESSER    [reduce using rule 64 (inner2)]
+    GREQUAL   [reduce using rule 64 (inner2)]
+    LTEQUAL   [reduce using rule 64 (inner2)]
+    NOTEQUAL  [reduce using rule 64 (inner2)]
+    ELSE      reduce using rule 9 (line)
+    ELSE      [reduce using rule 64 (inner2)]
+    IF        reduce using rule 9 (line)
+    IF        [reduce using rule 64 (inner2)]
+    NEWLINE   reduce using rule 9 (line)
+    NEWLINE   [reduce using rule 64 (inner2)]
+    VARIABLE  reduce using rule 9 (line)
+    VARIABLE  [reduce using rule 64 (inner2)]
+    WORD      reduce using rule 9 (line)
+    WORD      [reduce using rule 64 (inner2)]
+    NUMBER    reduce using rule 9 (line)
+    NUMBER    [reduce using rule 64 (inner2)]
+    $default  reduce using rule 9 (line)
+
+
+State 85
+
+   10 line: VARIABLE EQUALS expression .
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    LPAREN    [reduce using rule 10 (line)]
+    INT       [reduce using rule 10 (line)]
+    VARIABLE  [reduce using rule 10 (line)]
+    NUMBER    [reduce using rule 10 (line)]
+    $default  reduce using rule 10 (line)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 86
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+   69 inner2: LPAREN expression . RPAREN
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    RPAREN    shift, and go to state 127
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 87
+
+   31 expression: VARIABLE DBLEQUAL VARIABLE .
+
+    $default  reduce using rule 31 (expression)
+
+
+State 88
+
+   32 expression: VARIABLE DBLEQUAL NUMBER .
+
+    $default  reduce using rule 32 (expression)
+
+
+State 89
+
+   39 expression: VARIABLE GREATER VARIABLE .
+
+    $default  reduce using rule 39 (expression)
+
+
+State 90
+
+   40 expression: VARIABLE GREATER NUMBER .
+
+    $default  reduce using rule 40 (expression)
+
+
+State 91
+
+   35 expression: VARIABLE LESSER VARIABLE .
+
+    $default  reduce using rule 35 (expression)
+
+
+State 92
+
+   36 expression: VARIABLE LESSER NUMBER .
+
+    $default  reduce using rule 36 (expression)
+
+
+State 93
+
+   47 expression: VARIABLE GREQUAL VARIABLE .
+
+    $default  reduce using rule 47 (expression)
+
+
+State 94
+
+   48 expression: VARIABLE GREQUAL NUMBER .
+
+    $default  reduce using rule 48 (expression)
+
+
+State 95
+
+   43 expression: VARIABLE LTEQUAL VARIABLE .
+
+    $default  reduce using rule 43 (expression)
+
+
+State 96
+
+   44 expression: VARIABLE LTEQUAL NUMBER .
+
+    $default  reduce using rule 44 (expression)
+
+
+State 97
+
+   51 expression: VARIABLE NOTEQUAL VARIABLE .
+
+    $default  reduce using rule 51 (expression)
+
+
+State 98
+
+   52 expression: VARIABLE NOTEQUAL NUMBER .
+
+    $default  reduce using rule 52 (expression)
+
+
+State 99
+
+   68 inner2: VARIABLE LBRACKET VARIABLE . RBRACKET EQUALS VARIABLE
+
+    RBRACKET  shift, and go to state 128
+
+
+State 100
+
+   33 expression: NUMBER DBLEQUAL NUMBER .
+
+    $default  reduce using rule 33 (expression)
+
+
+State 101
+
+   41 expression: NUMBER GREATER NUMBER .
+
+    $default  reduce using rule 41 (expression)
+
+
+State 102
+
+   37 expression: NUMBER LESSER NUMBER .
+
+    $default  reduce using rule 37 (expression)
+
+
+State 103
+
+   49 expression: NUMBER GREQUAL NUMBER .
+
+    $default  reduce using rule 49 (expression)
+
+
+State 104
+
+   45 expression: NUMBER LTEQUAL NUMBER .
+
+    $default  reduce using rule 45 (expression)
+
+
+State 105
+
+   53 expression: NUMBER NOTEQUAL NUMBER .
+
+    $default  reduce using rule 53 (expression)
+
+
+State 106
+
+   18 output: words QUOTE RPAREN .
+
+    $default  reduce using rule 18 (output)
+
+
+State 107
+
+   28 expression: expression PLUS inner1 .
+   58 inner1: inner1 . ASTERISK inner2
+   59       | inner1 . FSLASH inner2
+   60       | inner1 . EXPON inner2
+   61       | inner1 . MOD inner2
+
+    MOD       shift, and go to state 68
+    ASTERISK  shift, and go to state 69
+    FSLASH    shift, and go to state 70
+    EXPON     shift, and go to state 71
+
+    $default  reduce using rule 28 (expression)
+
+
+State 108
+
+   29 expression: expression MINUS inner1 .
+   58 inner1: inner1 . ASTERISK inner2
+   59       | inner1 . FSLASH inner2
+   60       | inner1 . EXPON inner2
+   61       | inner1 . MOD inner2
+
+    MOD       shift, and go to state 68
+    ASTERISK  shift, and go to state 69
+    FSLASH    shift, and go to state 70
+    EXPON     shift, and go to state 71
+
+    $default  reduce using rule 29 (expression)
+
+
+State 109
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   30           | expression DBLEQUAL expression .
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    PLUS      [reduce using rule 30 (expression)]
+    MINUS     [reduce using rule 30 (expression)]
+    LPAREN    [reduce using rule 30 (expression)]
+    INT       [reduce using rule 30 (expression)]
+    DBLEQUAL  [reduce using rule 30 (expression)]
+    GREATER   [reduce using rule 30 (expression)]
+    LESSER    [reduce using rule 30 (expression)]
+    GREQUAL   [reduce using rule 30 (expression)]
+    LTEQUAL   [reduce using rule 30 (expression)]
+    NOTEQUAL  [reduce using rule 30 (expression)]
+    VARIABLE  [reduce using rule 30 (expression)]
+    NUMBER    [reduce using rule 30 (expression)]
+    $default  reduce using rule 30 (expression)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 110
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   38           | expression GREATER expression .
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    PLUS      [reduce using rule 38 (expression)]
+    MINUS     [reduce using rule 38 (expression)]
+    LPAREN    [reduce using rule 38 (expression)]
+    INT       [reduce using rule 38 (expression)]
+    DBLEQUAL  [reduce using rule 38 (expression)]
+    GREATER   [reduce using rule 38 (expression)]
+    LESSER    [reduce using rule 38 (expression)]
+    GREQUAL   [reduce using rule 38 (expression)]
+    LTEQUAL   [reduce using rule 38 (expression)]
+    NOTEQUAL  [reduce using rule 38 (expression)]
+    VARIABLE  [reduce using rule 38 (expression)]
+    NUMBER    [reduce using rule 38 (expression)]
+    $default  reduce using rule 38 (expression)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 111
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   34           | expression LESSER expression .
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    PLUS      [reduce using rule 34 (expression)]
+    MINUS     [reduce using rule 34 (expression)]
+    LPAREN    [reduce using rule 34 (expression)]
+    INT       [reduce using rule 34 (expression)]
+    DBLEQUAL  [reduce using rule 34 (expression)]
+    GREATER   [reduce using rule 34 (expression)]
+    LESSER    [reduce using rule 34 (expression)]
+    GREQUAL   [reduce using rule 34 (expression)]
+    LTEQUAL   [reduce using rule 34 (expression)]
+    NOTEQUAL  [reduce using rule 34 (expression)]
+    VARIABLE  [reduce using rule 34 (expression)]
+    NUMBER    [reduce using rule 34 (expression)]
+    $default  reduce using rule 34 (expression)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 112
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   46           | expression GREQUAL expression .
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    PLUS      [reduce using rule 46 (expression)]
+    MINUS     [reduce using rule 46 (expression)]
+    LPAREN    [reduce using rule 46 (expression)]
+    INT       [reduce using rule 46 (expression)]
+    DBLEQUAL  [reduce using rule 46 (expression)]
+    GREATER   [reduce using rule 46 (expression)]
+    LESSER    [reduce using rule 46 (expression)]
+    GREQUAL   [reduce using rule 46 (expression)]
+    LTEQUAL   [reduce using rule 46 (expression)]
+    NOTEQUAL  [reduce using rule 46 (expression)]
+    VARIABLE  [reduce using rule 46 (expression)]
+    NUMBER    [reduce using rule 46 (expression)]
+    $default  reduce using rule 46 (expression)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 113
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   42           | expression LTEQUAL expression .
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    PLUS      [reduce using rule 42 (expression)]
+    MINUS     [reduce using rule 42 (expression)]
+    LPAREN    [reduce using rule 42 (expression)]
+    INT       [reduce using rule 42 (expression)]
+    DBLEQUAL  [reduce using rule 42 (expression)]
+    GREATER   [reduce using rule 42 (expression)]
+    LESSER    [reduce using rule 42 (expression)]
+    GREQUAL   [reduce using rule 42 (expression)]
+    LTEQUAL   [reduce using rule 42 (expression)]
+    NOTEQUAL  [reduce using rule 42 (expression)]
+    VARIABLE  [reduce using rule 42 (expression)]
+    NUMBER    [reduce using rule 42 (expression)]
+    $default  reduce using rule 42 (expression)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 114
+
+   28 expression: expression . PLUS inner1
+   29           | expression . MINUS inner1
+   30           | expression . DBLEQUAL expression
+   34           | expression . LESSER expression
+   38           | expression . GREATER expression
+   42           | expression . LTEQUAL expression
+   46           | expression . GREQUAL expression
+   50           | expression . NOTEQUAL expression
+   50           | expression NOTEQUAL expression .
+   56           | expression . inner1
+
+    PLUS      shift, and go to state 59
+    MINUS     shift, and go to state 60
+    LPAREN    shift, and go to state 37
+    INT       shift, and go to state 26
+    DBLEQUAL  shift, and go to state 61
+    GREATER   shift, and go to state 62
+    LESSER    shift, and go to state 63
+    GREQUAL   shift, and go to state 64
+    LTEQUAL   shift, and go to state 65
+    NOTEQUAL  shift, and go to state 66
+    VARIABLE  shift, and go to state 45
+    NUMBER    shift, and go to state 46
+
+    PLUS      [reduce using rule 50 (expression)]
+    MINUS     [reduce using rule 50 (expression)]
+    LPAREN    [reduce using rule 50 (expression)]
+    INT       [reduce using rule 50 (expression)]
+    DBLEQUAL  [reduce using rule 50 (expression)]
+    GREATER   [reduce using rule 50 (expression)]
+    LESSER    [reduce using rule 50 (expression)]
+    GREQUAL   [reduce using rule 50 (expression)]
+    LTEQUAL   [reduce using rule 50 (expression)]
+    NOTEQUAL  [reduce using rule 50 (expression)]
+    VARIABLE  [reduce using rule 50 (expression)]
+    NUMBER    [reduce using rule 50 (expression)]
+    $default  reduce using rule 50 (expression)
+
+    inner1  go to state 67
+    inner2  go to state 23
+
+
+State 115
+
+   61 inner1: inner1 MOD inner2 .
+   65 inner2: inner2 . COMMA NUMBER
+
+    COMMA  shift, and go to state 72
+
+    $default  reduce using rule 61 (inner1)
+
+
+State 116
+
+   58 inner1: inner1 ASTERISK inner2 .
+   65 inner2: inner2 . COMMA NUMBER
+
+    COMMA  shift, and go to state 72
+
+    $default  reduce using rule 58 (inner1)
+
+
+State 117
+
+   59 inner1: inner1 FSLASH inner2 .
+   65 inner2: inner2 . COMMA NUMBER
+
+    COMMA  shift, and go to state 72
+
+    $default  reduce using rule 59 (inner1)
+
+
+State 118
+
+   60 inner1: inner1 EXPON inner2 .
+   65 inner2: inner2 . COMMA NUMBER
+
+    COMMA  shift, and go to state 72
+
+    $default  reduce using rule 60 (inner1)
+
+
+State 119
+
+   65 inner2: inner2 COMMA NUMBER .
+
+    $default  reduce using rule 65 (inner2)
+
+
+State 120
+
+   55 expression: LPAREN expression inner1 RPAREN .
+
+    $default  reduce using rule 55 (expression)
+
+
+State 121
+
+   11 line: PRINT LPAREN NUMBER RPAREN .
+
+    $default  reduce using rule 11 (line)
+
+
+State 122
+
+   12 line: PRINT LPAREN expression RPAREN .
+
+    $default  reduce using rule 12 (line)
+
+
+State 123
+
+   19 output: MAIN LPAREN RPAREN COLON . VOID BEG
+
+    VOID  shift, and go to state 129
+
+
+State 124
+
+   64 inner2: NUMBER .
+   67       | INT VARIABLE LBRACKET NUMBER . RBRACKET SEMICOLON
+
+    RBRACKET  shift, and go to state 130
+
+    RBRACKET  [reduce using rule 64 (inner2)]
+    $default  reduce using rule 64 (inner2)
+
+
+State 125
+
+   65 inner2: inner2 . COMMA NUMBER
+   66       | INT VARIABLE LBRACKET inner2 . RBRACKET SEMICOLON
+
+    COMMA     shift, and go to state 72
+    RBRACKET  shift, and go to state 131
+
+
+State 126
+
+   70 loop: DO NUMBER VARIABLE EQUALS . NUMBER COMMA NUMBER
+
+    NUMBER  shift, and go to state 132
+
+
+State 127
+
+   69 inner2: LPAREN expression RPAREN .
+
+    $default  reduce using rule 69 (inner2)
+
+
+State 128
+
+   68 inner2: VARIABLE LBRACKET VARIABLE RBRACKET . EQUALS VARIABLE
+
+    EQUALS  shift, and go to state 133
+
+
+State 129
+
+   19 output: MAIN LPAREN RPAREN COLON VOID . BEG
+
+    BEG  shift, and go to state 134
+
+
+State 130
+
+   67 inner2: INT VARIABLE LBRACKET NUMBER RBRACKET . SEMICOLON
+
+    SEMICOLON  shift, and go to state 135
+
+
+State 131
+
+   66 inner2: INT VARIABLE LBRACKET inner2 RBRACKET . SEMICOLON
+
+    SEMICOLON  shift, and go to state 136
+
+
+State 132
+
+   70 loop: DO NUMBER VARIABLE EQUALS NUMBER . COMMA NUMBER
+
+    COMMA  shift, and go to state 137
+
+
+State 133
+
+   68 inner2: VARIABLE LBRACKET VARIABLE RBRACKET EQUALS . VARIABLE
+
+    VARIABLE  shift, and go to state 138
+
+
+State 134
+
+   19 output: MAIN LPAREN RPAREN COLON VOID BEG .
+
+    $default  reduce using rule 19 (output)
+
+
+State 135
+
+   67 inner2: INT VARIABLE LBRACKET NUMBER RBRACKET SEMICOLON .
+
+    $default  reduce using rule 67 (inner2)
+
+
+State 136
+
+   66 inner2: INT VARIABLE LBRACKET inner2 RBRACKET SEMICOLON .
+
+    $default  reduce using rule 66 (inner2)
+
+
+State 137
+
+   70 loop: DO NUMBER VARIABLE EQUALS NUMBER COMMA . NUMBER
+
+    NUMBER  shift, and go to state 139
+
+
+State 138
+
+   68 inner2: VARIABLE LBRACKET VARIABLE RBRACKET EQUALS VARIABLE .
+
+    $default  reduce using rule 68 (inner2)
+
+
+State 139
+
+   70 loop: DO NUMBER VARIABLE EQUALS NUMBER COMMA NUMBER .
+
+    $default  reduce using rule 70 (loop)
